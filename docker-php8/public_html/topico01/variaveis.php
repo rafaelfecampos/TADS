@@ -36,7 +36,7 @@
     echo "<br>";
 
     //CONDICIONAL
-    $varC = 4;
+    /*$varC = 4;
     if($varC > 5)
         echo "Maior que 5";
     else if($varC > 3 && $varC <5)
@@ -44,10 +44,32 @@
     else{
         echo "Menor que 3";
     }
+    echo "<br>";
+    echo "<br>";*/
 
     //FOR
-    for($i = 0; $i<= 20; $i++){
-        echo "O quadrado de ".$i." é ".$i*$i."<br>";
+    /*for($i = 1; $i<= 20; $i++){
+        echo "O quadrado de ".$i." é <b>".$i*$i."</b><br>";
     }
+
+    echo "<br>";
+    echo "<br>";
+
+    //WHILE
+    $i=1;
+    while ($i <= 20) {
+        echo "O quadrado de ".$i." é <b>".$i*$i."</b><br>";
+        $i++;
+    }*/
+
+    echo "<br>";
+    echo "<br>";
+
+    //DO WHILE
+    $j=1;
+    do{
+        echo "O quadrado de ".$j." é <b>".$j*$j."</b><br>";
+        $j++;
+    }while ($j <=20)
 
 ?>
