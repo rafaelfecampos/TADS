@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="exemplo.php" method="post">
+        <input type="text" name="txtNome" size="30"><br>
+        <input type="radio" name="estCivil" value="Casado">Casado
+        <input type="radio" name="estCivil" value="Solteiro">Solteiro<br>
+        <select name="selEstado" size="1">
+            <option value="Sao Paulo">SP</option>
+            <option value="Rio de Janeiro">RJ</option>
+            <option value="Minas Gerais">MG</option>
+            <option value="Espirito Santo">ES</option>
+        </select>
+        <br>
+        <input type="checkbox" name="extras[]" value="Garagem">Garagem
+        <input type="checkbox" name="extras[]" value="Piscina">Piscina
+        <input type="checkbox" name="extras[]" value="Jardim">Jardim
+        <br><input type="submit" value="Enviar">
+    </form>
+</body>
+</html>
