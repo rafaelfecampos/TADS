@@ -4,12 +4,14 @@ class UsuarioSessao{
     public $login;
     public $nome;
 
-    public function salvar(){
+    public function salvar(string $nome){
+        $this->nome = $nome;
         echo "<p> salvar </p>";
     }
 
-    public function ler(){
+    public function ler():string{
         echo "<p> ler </p>";
+        return 23;
     }
 
     public function __construct($login,$nome) {
