@@ -3,7 +3,7 @@ require_once "Pessoa.php";
 require_once "Web.php";
 
 class Funcionario extends Pessoa implements Web {
-    private $matricula;
+    public $matricula;
 
     public function __construct(float $salario, string $nome, int $matricula){
         parent::__construct($salario,$nome);
@@ -38,5 +38,22 @@ class Funcionario extends Pessoa implements Web {
         echo "<p> {$this->nome}</p>";
         echo "<p> {$this->salario}</p>";
         echo "<p> {$this->matricula}</p>";
+    }
+
+    function __get($nome){
+        if($nome == "identidade"){
+            return $this->matricula;
+        }
+    }
+    function __set($nome, $valor){
+        // echo "Tentando colocar $valor em $nome";
+        if($nome == "identidade"){
+            $this->matricula = $valor;
+        }
+    }
+    function __call($nome, $parametros) {
+        if($nome == "setIdentidade"){
+            $this->matricula = $parametros[0];
+        }
     }
 }

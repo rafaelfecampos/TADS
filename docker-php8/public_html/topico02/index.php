@@ -6,10 +6,10 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="processa.php?id=<?$_POST["userId"]?>" method="GET">
+    <form action="processa.php?id=<?$_POST["userId"]?>" method="posT">
         <input type="text" name="nome"> 
         <input type="radio" name="estCivil" value="Solteiro"> Solteiro
-        <input type="radio" name="estCivil" value="Casado"> Casado <br>
+        <input type="radio" name="estCivil" value="BOTAFOGO"> Casado <br>
         
         <select name="selEstado">
             <option value="Rio de Janeiro">RJ</option>
