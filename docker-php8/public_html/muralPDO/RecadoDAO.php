@@ -1,12 +1,41 @@
 <?php
+require_once "Recado.php";
+require_once "InterfaceDAO.php";
+require_once "Database.php";
 
-class RecadoDAO{
-    public $id;
-    public $nome;
-    public $email;
-    public $cidade;
-    public $texto;
+class RecadoDAO extends Recado implements InterfaceDAO{
+    public static function criar($dados){
+        $con = Database::getConnection();
 
+        $sql = "INSERT INTO tads.recados
+        (nome, email, cidade, texto)
+        VALUES(:nome, :email, :cidade, :texto);";
+        
+        $stmt = $con->preprare($sql);
+        $stmt->bindValue(":nome",$nome);
+        $stmt->bindValue(":email",$email);
+        $stmt->bindValue(":cidade",$cidade);
+        $stmt->bindValue(":texto",$texto);
+        $stmt->execute();
+    }
+
+    public static function deletar($id){
+
+    }
+
+    public static function buscar($id){
+
+    }
+
+    public static function buscarTodos(){
+
+    }
+
+    public static function atualizar($id, $dados){
+
+    }
+
+    
     function imprimeLinhaTabela(){
         echo "
             <tr>\n

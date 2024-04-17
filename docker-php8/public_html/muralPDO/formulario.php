@@ -3,12 +3,13 @@ require_once "RecadoDAO.php";
 
     if (isset($_GET["alterar"])):
         $id = $_GET["alterar"];
-        $sql = "SELECT id, nome, email, cidade, texto FROM tads.recados WHERE id={$id};";
+        $sql = "SELECT id, nome, email, cidade, texto FROM tads.recados WHERE id=:id;";
+
+        $stmt = $con->prepare($sql);
+        $stmt->bind_param('i',$id);
         
-        if ($result = $con->query($sql)):
-            if ($result->num_rows > 0):
-                $recado = $result->fetch_object('RecadoDAO');
-            endif;        
+        if ($stmt->execute()):
+            $result = $stmt->fetch();
         endif;
 
     endif;
@@ -38,17 +39,29 @@ require_once "RecadoDAO.php";
 
             $sql = "INSERT INTO tads.recados
             (nome, email, cidade, texto)
-            VALUES('{$nome}', '{$email}', '{$cidade}', '{$texto}');";
+            VALUES(:nome, :email, :cidade, :texto);";
+            $stmt = $con->preprare($sql);
+            $stmt->bindValue(":nome",$nome);
+            $stmt->bindValue(":email",$email);
+            $stmt->bindValue(":cidade",$cidade);
+            $stmt->bindValue(":texto",$texto);
+            $stmt->execute();
+
+
             
         elseif ($_POST["enviar"] == "Atualizar"):
 
             $id = $_GET["atualizar"];
-            $sql = "UPDATE tads.recados SET nome='{$nome}', email='{$email}', cidade='{$cidade}', texto='{$texto}' WHERE id={$id};";
-
+            $sql = "UPDATE tads.recados SET nome=:nome, email=:$email, cidade=':$cidade, texto=:$texto WHERE id=:$id:;";
+            $stmt = $con->preprare($sql);
+            $stmt->bindvalueI(':id',$id);
         endif;
             
-        $con->query($sql);
-
+        $stmt->bindValue(":nome",$nome);
+        $stmt->bindValue(":email",$email);
+        $stmt->bindValue(":cidade",$cidade);
+        $stmt->bindValue(":texto",$texto);
+        $stmt->execute();
     endif;
 
 ?>

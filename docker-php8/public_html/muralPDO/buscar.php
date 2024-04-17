@@ -11,15 +11,12 @@ if (isset($_POST["buscar"])):
 
     $stmt = $con->prepare($sql);
     $stmt->bind_param('i',$id);
-    $stmt->execute();
     
+    $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FECTCH_PROPS_LATE, "RecadoDAO");
 
-    if ($result = $stmt->get_result()):
-        if ($result->num_rows > 0):
-            while ($recado = $result->fetch_object('RecadoDAO')):
-                var_dump($recado);
-            endwhile;
-        endif;        
+    if ($stmt->execute()):
+        $recado = $stmt->fetch(); 
+        var_dump($recado);     
     endif;
 
 endif;

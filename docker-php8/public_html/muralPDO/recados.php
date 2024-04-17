@@ -2,12 +2,14 @@
 
 if (isset($_GET["excluir"])):
     $id = $_GET["excluir"];
-    $sql = "DELETE FROM tads.recados WHERE id=$id;";
-    if ($result = $con->query($sql)):
+    $sql = "DELETE FROM tads.recados WHERE id= :id;";
+    
+    $stmt = $con->prepare($sql);
+    $stmt->bind_param(':id',$id);
+    $stmt->execute();
 ?>
     <p>Registro Excluido!</p>
 <?php
-    endif;
 endif;
 
 require_once "RecadoDAO.php";
@@ -15,7 +17,7 @@ require_once "RecadoDAO.php";
 $sql = 'SELECT id, nome, email, cidade, texto FROM tads.recados;';
 
 if ($result = $con->query($sql)):
-    if ($result->num_rows > 0):
+    if ($result->rowCount() > 0):
 ?>
     <table border=1>
         <tr>
@@ -27,9 +29,11 @@ if ($result = $con->query($sql)):
             <th>Alterar</th>
         </tr>
 <?php
-    while ($recado = $result->fetch_object('RecadoDAO')):
+    $result->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,"RecadoDAO");
+
+    while ($recado = $result->fetch()):
         $recado->imprimeLinhaTabela();
-    endwhile
+    endwhile;
 ?>
     </table>
 <?php

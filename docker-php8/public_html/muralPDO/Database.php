@@ -1,27 +1,22 @@
 <?php
 
-class Database{
+    class Database{
 
-    static $db = null;
+        static $db = null;
 
-    public function __construct() {
-        
-        if (self::$db == null){
-            self::$db = new mysqli('mariadb','root','root','tads');
-
-            if ( self::$db->connect_errno > 0){
-                die("Ocorreu um erro { self::$db->connect_error}");
-            }
+        function static getConnection(){
+            if(self::$db == null){
+                self::$db = new PDO("mysql:host=mariadb;dbname=tads","root","root");
+            } 
+            return self::$db;
         }
 
+        function closeConnection(){
+            self::$db = null;
+        }
     }
 
-    function getConnection() {
-        return self::$db;
-    }
 
-    function closeConnection() {
-        self::$db->close();
-    }
-}
+
+    
 
