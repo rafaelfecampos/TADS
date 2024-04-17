@@ -13,13 +13,11 @@
     endif;
 
     require_once "DAO/RecadoDAO.php";
-    // $sql = "SELECT id, nome, email, cidade, recado FROM estudos.recados;";
-    $stmt = $con->prepare("SELECT id, nome, email, cidade, recado FROM estudos.recados;");
-    $stmt->execute();
-    $stmt->store_result();
+    $sql = 'SELECT id, nome, email, cidade, recado FROM tads.recados;';
 
-    if($stmt):
-        if($stmt->num_rows>0):
+    if($result = $con->query($sql)):
+        if($result->num_rows > 0):
+
 ?>
     <table border=1>
         <tr>
@@ -31,9 +29,9 @@
             <th>Alterar</th>
         </tr>
 <?php
-    while ($obj = $stmt->get_result()->fetch_object('RecadoDAO')){
-        $obj->imprimeTabela();
-    }
+            while ($obj = $result->fetch_object('RecadoDAO')) {
+                $obj->imprimeTabela();
+            }
 ?>
     </table>
 <?php

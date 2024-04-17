@@ -1,20 +1,38 @@
 <?php
-    require_once "Database.php";
-    require_once "Aluno.php";
 
-    $db = new Database();
+require_once "Database.php";
+require_once "Aluno.php";
 
-    $con = $db->getConnection();
+$db = new Database();
 
-    $sql = "SELECT id, nome, matricula FROM tads.alunos";
+$con = $db->getConnection();
 
-    $alunos = $con->query($sql);
+$nome = "Pikachu";
+$matricula = 456789;
 
-    $alunos->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Aluno");
+$insertSql = "INSERT INTO tads.alunos
+(nome, matricula)
+VALUES(:nome, :matricula);";
 
-    echo "Quantidade de alunos: {$alunos->rowCount()}";
+$stmt = $con->prepare($insertSql);
 
-    foreach($alunos as $aluno){
-        var_dump($aluno);
-    }
-?>
+$stmt->bindValue(':nome', $nome); //bindValue guarda o valor, bindParam guarda o parametro
+$stmt->bindValue(':matricula', $matricula);
+
+if($stmt->execute()){
+    echo "Registro incluido! <br>";
+}
+
+
+$sql = "SELECT id, nome, matricula FROM tads.alunos;";
+
+$alunos = $con->query($sql);
+
+$alunos->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,"Aluno");
+
+
+echo "Quantidade de alunos: {$alunos->rowCount()}";
+
+foreach ($alunos as $aluno) {
+    $aluno->imprimeDados();
+}

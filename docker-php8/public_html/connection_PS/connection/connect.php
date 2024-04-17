@@ -5,7 +5,7 @@ class DataBase{
 
     public function __construct(){
         if(self::$db == null){
-            self::$db = new mysqli('127.0.0.1', 'root', '', 'estudos');
+            self::$db = new mysqli('mariadb', 'root', 'root', 'tads');
 
             if(self::$db->connect_error > 0){
                 die("Ocorreu um erro: {$db->connect_error}");
